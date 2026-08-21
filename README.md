@@ -4,6 +4,8 @@ Gladius is a decentralized, high-stakes 1v1 skill contest and semantic resolutio
 
 **Live Web Dashboard:** https://duo-cyan.vercel.app/ *(To be updated upon production deployment)*
 
+**Deployed Contract (GenLayer Studionet):** `0x1d4c3b281FE4d4EAa61cA3AC08AF2a994e83174D`
+
 ---
 
 ## 🏛️ The Problem & The GenLayer Edge

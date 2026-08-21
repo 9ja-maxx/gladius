@@ -12,7 +12,7 @@ This directory contains the Next.js web application for the Gladius 1v1 Skill Ad
 2. **Configure Environment Variables:**
    Create a `.env.local` file in this directory:
    ```env
-   NEXT_PUBLIC_CONTRACT_ADDRESS=0xYourDeployedContractAddress
+    NEXT_PUBLIC_CONTRACT_ADDRESS=0x1d4c3b281FE4d4EAa61cA3AC08AF2a994e83174D
    ```
 
 3. **Run Development Server:**

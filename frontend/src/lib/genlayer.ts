@@ -5,7 +5,7 @@ import type { GenLayerClient } from "genlayer-js/types";
 // Default placeholder contract address on GenLayer Studionet.
 // Will be overridden by the deployer's contract address.
 export const CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS ||
-  "0x0000000000000000000000000000000000000000") as `0x${string}`;
+  "0x1d4c3b281FE4d4EAa61cA3AC08AF2a994e83174D") as `0x${string}`;
 
 declare global {
   interface Window {
