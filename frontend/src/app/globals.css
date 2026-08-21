@@ -1,0 +1,29 @@
+/* Custom Globals for Gladius */
+
+html, body {
+  background-color: #050508;
+  color: #e5e7eb;
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #be123c;
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050508;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #be123c;
+}
