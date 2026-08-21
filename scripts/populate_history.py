@@ -59,6 +59,23 @@ client_a = create_client(chain=studionet, account=create_account(acct_a.key.hex(
 client_b = create_client(chain=studionet, account=create_account(acct_b.key.hex()))
 client_c = create_client(chain=studionet, account=create_account(acct_c.key.hex()))
 
+# Wait for Consensus finalization helper
+def wait_for_tx(client, tx_hash):
+    print(f"Waiting for consensus finalization of {tx_hash}...")
+    t0 = time.time()
+    while time.time() - t0 < 600:
+        status = client.provider.make_request(
+            method='gen_getTransactionStatus', 
+            params=[tx_hash]
+        )['result']
+        if status == 'FINALIZED':
+            print("Transaction FINALIZED successfully!")
+            return
+        elif status == 'CANCELED':
+            raise Exception(f"Transaction {tx_hash} was CANCELED/Reverted by consensus!")
+        time.sleep(4)
+    raise Exception(f"Timeout waiting for finalization of {tx_hash}")
+
 # Contract Write/Read Wrappers
 def get_duel_count(client):
     return int(client.read_contract(address=ADDR, function_name="get_duel_count", args=[]))
@@ -72,7 +89,8 @@ def open_duel(client, account, category, prompt, stake_gen):
         value=int(stake_gen * 10**18),
         args=[category, prompt]
     )
-    print(f"Consensus tx hash: {tx_hash}")
+    print(f"Sent open_duel. Hash: {tx_hash}")
+    wait_for_tx(client, tx_hash)
     return tx_hash
 
 def match_duel(client, account, duel_id, stake_gen):
@@ -84,7 +102,8 @@ def match_duel(client, account, duel_id, stake_gen):
         value=int(stake_gen * 10**18),
         args=[int(duel_id)]
     )
-    print(f"Consensus tx hash: {tx_hash}")
+    print(f"Sent match_duel. Hash: {tx_hash}")
+    wait_for_tx(client, tx_hash)
     return tx_hash
 
 def submit_solution(client, account, duel_id, solution):
@@ -95,7 +114,8 @@ def submit_solution(client, account, duel_id, solution):
         account=create_account(account.key.hex()),
         args=[int(duel_id), solution]
     )
-    print(f"Consensus tx hash: {tx_hash}")
+    print(f"Sent submit_solution. Hash: {tx_hash}")
+    wait_for_tx(client, tx_hash)
     return tx_hash
 
 def evaluate_duel(client, account, duel_id):
@@ -106,7 +126,8 @@ def evaluate_duel(client, account, duel_id):
         account=create_account(account.key.hex()),
         args=[int(duel_id)]
     )
-    print(f"Consensus tx hash: {tx_hash}")
+    print(f"Sent evaluate_duel. Hash: {tx_hash}")
+    wait_for_tx(client, tx_hash)
     return tx_hash
 
 def cancel_duel(client, account, duel_id):
@@ -117,7 +138,8 @@ def cancel_duel(client, account, duel_id):
         account=create_account(account.key.hex()),
         args=[int(duel_id)]
     )
-    print(f"Consensus tx hash: {tx_hash}")
+    print(f"Sent cancel_duel. Hash: {tx_hash}")
+    wait_for_tx(client, tx_hash)
     return tx_hash
 
 print("\n--- Phase 2: Seeding Historical Duels ---")
