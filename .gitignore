@@ -1,0 +1,20 @@
+# Secrets and local config
+.env
+.env*.local
+.env.local
+
+# Dependency directories
+node_modules/
+.next/
+out/
+build/
+
+# Python caching & testing
+.pytest_cache/
+__pycache__/
+*.pyc
+.venv/
+venv/
+artifacts/
+.system_generated/
+*.log
