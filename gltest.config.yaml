@@ -1,3 +1,7 @@
+# GenLayer Testing configuration (gltest)
+# Tells the test runner where contracts and artifacts are stored,
+# what environment variables file to read, and defaults for chain networks.
+
 paths:
   contracts: contracts
   artifacts: artifacts
