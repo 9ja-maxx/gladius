@@ -205,14 +205,16 @@ Example response:
 
             raw_response = gl.nondet.exec_prompt(eval_prompt)
             
-            # Clean possible markdown block wrappers
-            cleaned = raw_response.strip()
-            if cleaned.startswith("```"):
-                lines = cleaned.split("\n")
-                lines = [line for line in lines if not line.strip().startswith("```")]
-                cleaned = "\n".join(lines).strip()
-
-            parsed = json.loads(cleaned)
+            # Clean and parse response defensively to support both local dict mocks and raw on-chain strings
+            if isinstance(raw_response, dict):
+                parsed = raw_response
+            else:
+                cleaned = str(raw_response).strip()
+                if cleaned.startswith("```"):
+                    lines = cleaned.split("\n")
+                    lines = [line for line in lines if not line.strip().startswith("```")]
+                    cleaned = "\n".join(lines).strip()
+                parsed = json.loads(cleaned)
             
             return {
                 "winner": int(max(1, min(2, int(parsed.get("winner", 1))))),
