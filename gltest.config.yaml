@@ -1,0 +1,12 @@
+paths:
+  contracts: contracts
+  artifacts: artifacts
+
+environment: .env
+
+networks:
+  default: localnet
+  localnet:
+  testnet_bradbury:
+    accounts:
+      - "${ACCOUNT_PRIVATE_KEY}"
